@@ -1,0 +1,15 @@
+/Users/tanho/Projects/ASM_1651/ASM_1651/bin/Debug/net6.0/ASM_1651
+/Users/tanho/Projects/ASM_1651/ASM_1651/bin/Debug/net6.0/ASM_1651.deps.json
+/Users/tanho/Projects/ASM_1651/ASM_1651/bin/Debug/net6.0/ASM_1651.runtimeconfig.json
+/Users/tanho/Projects/ASM_1651/ASM_1651/bin/Debug/net6.0/ASM_1651.dll
+/Users/tanho/Projects/ASM_1651/ASM_1651/bin/Debug/net6.0/ASM_1651.pdb
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.csproj.AssemblyReference.cache
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.GeneratedMSBuildEditorConfig.editorconfig
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.AssemblyInfoInputs.cache
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.AssemblyInfo.cs
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.csproj.CoreCompileInputs.cache
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.dll
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/refint/ASM_1651.dll
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.pdb
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ASM_1651.genruntimeconfig.cache
+/Users/tanho/Projects/ASM_1651/ASM_1651/obj/Debug/net6.0/ref/ASM_1651.dll
