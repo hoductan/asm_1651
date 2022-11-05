@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq.Expressions;
 
+
 public static class StringExtensions
 {
     public static bool ContainsCaseInsensitive(this string source, string substring)
@@ -175,31 +176,31 @@ class Manager : User
     {
         try
         {
-            Console.WriteLine("What type of item? (Book,MusicCD,Software)");
+            Console.Write("What type of item? (Book,MusicCD,Software): ");
             string type = Console.ReadLine();
-            Console.WriteLine("Title: ");
+            Console.Write("Title: ");
             string title = Console.ReadLine();
-            Console.WriteLine("Year Published: ");
+            Console.Write("Year Published: ");
             int yearPublished = int.Parse(Console.ReadLine());
-            Console.WriteLine("Price: ");
+            Console.Write("Price: ");
             int price = int.Parse(Console.ReadLine());
             if (type.Equals("book", StringComparison.InvariantCultureIgnoreCase))
             {
-                Console.WriteLine("Author: ");
+                Console.Write("Author: ");
                 string author = Console.ReadLine();
-                Console.WriteLine("edition: ");
+                Console.Write("Edition: ");
                 int edition = int.Parse(Console.ReadLine());
                 itemlist.Add(new Book(title, yearPublished, price, author, edition));
             }
             else if (type.Equals("musiccd", StringComparison.InvariantCultureIgnoreCase))
             {
-                Console.WriteLine("Artist: ");
+                Console.Write("Artist: ");
                 string artist = Console.ReadLine();
                 itemlist.Add(new MusicCD(title, yearPublished, price, artist));
             }
             else if (type.Equals("software", StringComparison.InvariantCultureIgnoreCase))
             {
-                Console.WriteLine("version: ");
+                Console.Write("version: ");
                 string version = Console.ReadLine();
                 itemlist.Add(new Software(title, yearPublished, price, version));
             }
@@ -211,7 +212,18 @@ class Manager : User
 }
 class Customer : User
 {
-    public Customer() { }
+    public Customer()
+    {
+        Console.WriteLine("PLEASE PROVIDE INFORMATION");
+        Console.Write("Id: ");
+        this.Id = int.Parse(Console.ReadLine());
+        Console.Write("FullName: ");
+        this.FullName =Console.ReadLine();
+        Console.Write("PhoneNumber: ");
+        this.PhoneNumber = Console.ReadLine();
+        Console.Write("Address: ");
+        this.Address = Console.ReadLine();
+    }
     public Customer(int id, string fullName, string phoneNumber, string address)
     {
         this.Id = id;
@@ -248,12 +260,10 @@ class Order
     public Customer customer;
     public int total;
     public Payment paymentMethod;
-    public Order(string date, Customer customer)
+    public Order(DateTime date, Customer customer)
     {
         this.customer = customer;
-        DateTime Date_dt = DateTime.ParseExact(date, "dd-MM-yyyy",
-                                       System.Globalization.CultureInfo.InvariantCulture);
-        this.date = Date_dt;
+        this.date = date;
     }
     public void addItem(List<Item> itemlist,string title)
     {
@@ -272,21 +282,21 @@ class Order
     }
     public void selectPaymentMethod()
     {
-        Console.WriteLine($"The amount to be paid is:{total}\n What is your payment Method? (Credit/Cash): ");
+        Console.Write($"The amount to be paid is:{total}\n What is your payment Method? (Credit/Cash): ");
         string pm = Console.ReadLine();
         if (pm.Equals("credit", StringComparison.InvariantCultureIgnoreCase))
         {
-            Console.WriteLine("Card Number:");
+            Console.Write("Card Number: ");
             int number = int.Parse(Console.ReadLine());
-            Console.WriteLine("Type of your Card:");
+            Console.Write("Type of your Card: ");
             string type = Console.ReadLine();
-            Console.WriteLine("Expiration date(dd-MM-yyyy):");
+            Console.Write("Expiration date(dd-MM-yyyy): ");
             string expdate = Console.ReadLine();
             paymentMethod = new Credit(number, type, expdate, total);
         }
         else if (pm.Equals("cash", StringComparison.InvariantCultureIgnoreCase))
         {
-            Console.WriteLine("Cash:");
+            Console.Write("Cash: ");
             int number = int.Parse(Console.ReadLine());
             paymentMethod = new Cash(number, total);
         }
@@ -305,92 +315,83 @@ class Order
 }
 class Program
 {
-
     static void Main(string[] args)
     {
         List<Item> itemlist = new List<Item>();
         List<Order> orders = new List<Order>();
-        Payment credit = new Credit(200, "VISA", "10-12-2022", 300);
-        itemlist.Add(new Book("Doraemon", 2002, 100, "Fuji", 1));
-        itemlist.Add(new Book("Doraemon 2", 2002, 100, "Fuji", 2));
-        itemlist.Add(new Book("Doraemon 3", 2002, 100, "Fuji", 2));
-        itemlist.Add(new Software("Photoshop", 2002, 100, "22.1"));
-        itemlist.Add(new MusicCD("Love yourself", 2022, 2, "Justin"));
-        Console.WriteLine("role: ");
-        string role=Console.ReadLine();
-        if (role.Equals("manager"))
+        List<Customer> customers = new List<Customer>();
+        itemlist.Add(new Book("Doraemon", 2002, 100, "Fujio", 1));
+        //itemlist.Add(new Book("Doraemon 2", 2002, 100, "Fujio", 2));
+        //itemlist.Add(new Book("Doraemon 3", 2002, 100, "Fujio", 2));
+        //itemlist.Add(new Software("Photoshop", 2002, 100, "22.1"));
+        //itemlist.Add(new MusicCD("Love yourself", 2022, 2, "Justin"));
+        string role = "";
+        do
         {
-            Manager manager = new Manager(1001, "Pham Thanh Son", "0762703988", "Da Nang", 2000);
-            int x;
-            do
+            Console.Write("role: ");
+            role = Console.ReadLine();
+            if (role.Equals("manager"))
             {
-                Console.WriteLine("--------------");
-                Console.WriteLine($"1:View all items\n2:Add a new item\n3:Delete item\n4:Exit");
-                Console.WriteLine("Choose your option:");
-                x = int.Parse(Console.ReadLine());
-                switch (x)
+                Manager manager = new Manager();
+                int x;
+                do
                 {
-                    case 1:
-                        manager.viewAllItem(itemlist);
-                        break;
-                    case 2:
-                        manager.addItem(itemlist);
-                        break;
-                    case 3:
-                        manager.deleteItem(itemlist);
-                        break;
-                    default:
-                        // code block
-                        break;
-                }
-            } while (x != 4);
-        }
-        else
-        {
-            Customer person = new Customer(1, "Ho Duc Tan", "0762703989", "Quang Nam");
-            Order order = new Order("20-11-2022", person);
-            int x;
-            do
+                    Console.WriteLine("--------------");
+                    Console.WriteLine($"1:View all items\n2:Add a new item\n3:Delete item\n4:Exit");
+                    Console.Write("Choose your option:");
+                    x = int.Parse(Console.ReadLine());
+                    switch (x)
+                    {
+                        case 1:
+                            manager.viewAllItem(itemlist);
+                            break;
+                        case 2:
+                            manager.addItem(itemlist);
+                            break;
+                        case 3:
+                            manager.deleteItem(itemlist);
+                            break;
+                        default:
+                            break;
+                    }
+                } while (x != 4);
+            }
+            else if( role.Equals("customer"))
             {
-                Console.WriteLine("--------------");
-                Console.WriteLine($"1:Search item by title\n2:ADD Item to order\n3: Print order detail\n4:Exit");
-                Console.WriteLine("Choose your option:");
-                x = int.Parse(Console.ReadLine());
-                switch (x)
+                Customer person = new Customer();
+                customers.Add(person);
+                Order order = new Order(DateTime.Today, person);
+                Console.WriteLine(order.date);
+                int x;
+                do
                 {
-                    case 1:
-                        person.searchItemByTitle(itemlist);
-                        break;
-                    case 2:
-                        Console.WriteLine("Title of item you want to add: ");
-                        string title = Console.ReadLine();
-                        order.addItem(itemlist, title);
-                        break;
-                    case 3:
-                        order.selectPaymentMethod();
-                        Console.WriteLine("--------------");
-                        Console.WriteLine(order);
-                        Console.WriteLine("--------------");
-                        break;
-                    default:
-                        // code block
-                        break;
-                }
-            } while (x != 4);
-         }
-        //person.searchItemByTitle(itemlist);
+                    Console.WriteLine("--------------");
+                    Console.WriteLine($"1:Search item by title\n2:ADD Item to order\n3: Print order detail\n4:Exit");
+                    Console.Write("Choose your option:");
+                    x = int.Parse(Console.ReadLine());
+                    switch (x)
+                    {
+                        case 1:
+                            person.searchItemByTitle(itemlist);
+                            break;
+                        case 2:
+                            Console.WriteLine("Title of item you want to add: ");
+                            string title = Console.ReadLine();
+                            order.addItem(itemlist, title);
+                            break;
+                        case 3:
+                            order.selectPaymentMethod();
+                            Console.WriteLine("--------------");
+                            Console.WriteLine(order);
+                            orders.Add(order);
+                            Console.WriteLine("--------------");
 
-        //try
-        //{
-        //    Order order = new Order("20-11-2022", person);
-        //    order.addItem(itemlist[0]);
-        //    order.addItem(itemlist[2]);
-        //    order.selectPaymentMethod();
-        //    Console.WriteLine(order);
-        //}
-        //catch (Exception e)
-        //{
-        //    Console.WriteLine(e);
-        //}
+                            break;
+                        default:
+                            break;
+                    }
+                } while (x != 4);
+            }
+        } while (!role.Equals("stop"));
     }
 }
